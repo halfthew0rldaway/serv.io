@@ -120,24 +120,24 @@ flowchart TD
 ## Alur Pengguna (Use Case Diagram)
 
 ```mermaid
-usecaseDiagram
-    actor Admin
-    actor Teknisi
-    actor CustomerPublic as Customer (Publik)
+flowchart LR
+    Admin([Admin])
+    Teknisi([Teknisi])
+    Customer([Customer / Publik])
 
-    package "Serv.io System" {
-        usecase "Akses Dashboard & Statistik" as UC1
-        usecase "Kelola Data Customer & Perangkat" as UC2
-        usecase "Buat Tiket Servis" as UC3
-        usecase "Kelola Stok Sparepart" as UC4
-        usecase "Terbitkan Invoice" as UC5
+    subgraph Serv.io System
+        UC1(Akses Dashboard & Statistik)
+        UC2(Kelola Data Customer & Perangkat)
+        UC3(Buat Tiket Servis)
+        UC4(Kelola Stok Sparepart)
+        UC5(Terbitkan Invoice)
         
-        usecase "Diagnosis Perangkat" as UC6
-        usecase "Input Log & Foto Perbaikan" as UC7
-        usecase "Ubah Status Perbaikan" as UC8
+        UC6(Diagnosis Perangkat)
+        UC7(Input Log & Foto Perbaikan)
+        UC8(Ubah Status Perbaikan)
         
-        usecase "Lacak Status via No. Resi" as UC9
-    }
+        UC9(Lacak Status via No. Resi)
+    end
 
     Admin --> UC1
     Admin --> UC2
@@ -151,7 +151,7 @@ usecaseDiagram
     Teknisi --> UC8
     Teknisi --> UC4
 
-    CustomerPublic --> UC9
+    Customer --> UC9
 ```
 
 ---
@@ -160,22 +160,22 @@ usecaseDiagram
 
 ### Prasyarat Sistem
 - Node.js versi 18 atau lebih baru.
-- MySQL Server (bisa menggunakan XAMPP atau Docker).
+- MySQL Server (XAMPP / Docker).
 
 ### 1. Setup Database
-1. Buka MySQL server Anda.
-2. Buat database kosong dengan nama `repair_workshop` (atau nama lain sesuai preferensi).
+1. Buka MySQL server.
+2. Buat database kosong dengan nama `repair_workshop` (atau nama lain).
 
 ### 2. Setup Backend
 1. Buka terminal, masuk ke direktori `backend`.
 2. Jalankan perintah `npm install`.
-3. Buat file `.env` di dalam folder `backend` dengan isi format berikut:
+3. Buat file `.env` di dalam folder `backend` dengan format berikut:
    ```env
    DATABASE_URL="mysql://root:@localhost:3306/repair_workshop"
    JWT_SECRET="rahasia_super_aman"
    PORT=5000
    ```
-   *Catatan: Sesuaikan username (`root`), password (`:password`), dan nama database jika berbeda.*
+   *Catatan: Sesuaikan username (root), password, dan nama database jika berbeda.*
 4. Sinkronisasi struktur database menggunakan Prisma:
    ```bash
    npx prisma db push
@@ -197,9 +197,9 @@ usecaseDiagram
    ```bash
    npm run dev
    ```
-4. Buka URL yang diberikan di terminal (biasanya `http://localhost:5173`) pada browser Anda.
+4. Buka URL yang diberikan di terminal (biasanya `http://localhost:5173`) pada browser.
 
 ### Akun Akses Default
-Gunakan akun berikut untuk login pertama kali (dibuat oleh `seed.js`):
+Gunakan akun berikut untuk login pertama kali (dibuat otomatis oleh script database):
 - **Admin**: Email `admin@repair.com` | Password `password123`
 - **Teknisi**: Email `teknisi@repair.com` | Password `password123`
