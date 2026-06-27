@@ -160,32 +160,41 @@ flowchart LR
     Customer([Customer / Publik])
 
     subgraph System ["Serv.io System"]
-        UC1(Akses Dashboard & Statistik)
-        UC2(Kelola Data Customer & Perangkat)
-        UC3(Buat Tiket Servis)
-        UC4(Kelola Stok Sparepart)
-        UC5(Terbitkan Invoice)
-        
-        UC6(Diagnosis Perangkat)
-        UC7(Input Log & Foto Perbaikan)
-        UC8(Ubah Status Perbaikan)
-        
-        UC9(Lacak Status via No. Resi)
+        UC1(Kelola Data Customer)
+        UC2(Kelola Data Perangkat)
+        UC3(Kelola Stok Sparepart)
+        UC4(Buat Tiket Servis & Tugaskan Teknisi)
+        UC5(Ambil Alih Tiket)
+        UC6(Input Diagnosis & Estimasi Biaya)
+        UC7(Update Status: Disetujui / Dalam Perbaikan)
+        UC8(Tambah Catatan Tiket / Permintaan Customer)
+        UC9(Input Log & Dokumentasi Perbaikan)
+        UC10(Gunakan Sparepart pada Tiket)
+        UC11(Selesaikan Tiket)
+        UC12(Terbitkan Invoice)
+        UC13(Lihat Dashboard & Statistik)
+        UC14(Export Log Aktivitas CSV)
+        UC15(Lacak Status Servis)
     end
 
     Admin --> UC1
     Admin --> UC2
     Admin --> UC3
     Admin --> UC4
-    Admin --> UC5
+    Admin --> UC7
+    Admin --> UC8
+    Admin --> UC12
+    Admin --> UC13
+    Admin --> UC14
 
-    Teknisi --> UC1
+    Teknisi --> UC5
     Teknisi --> UC6
-    Teknisi --> UC7
-    Teknisi --> UC8
-    Teknisi --> UC4
+    Teknisi --> UC9
+    Teknisi --> UC10
+    Teknisi --> UC11
+    Teknisi --> UC13
 
-    Customer --> UC9
+    Customer --> UC15
 ```
 
 ---
