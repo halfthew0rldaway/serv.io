@@ -14,78 +14,112 @@ Sistem ini menggunakan struktur relasional untuk menghubungkan entitas Customer,
 
 ```mermaid
 erDiagram
-    User ||--o{ TiketServis : "teknisi"
+    User ||--o{ TiketServis : "teknisi_id"
+    User ||--o{ ActivityLog : "user_id"
     User {
-        int id PK
-        string nama
-        string email
-        string password
-        enum role "admin, teknisi"
+        Int id PK
+        String nama
+        String email
+        String password
+        String role "admin / teknisi"
+        DateTime created_at
     }
 
-    Customer ||--o{ Perangkat : "memiliki"
-    Customer ||--o{ TiketServis : "mengajukan"
+    Customer ||--o{ Perangkat : "customer_id"
     Customer {
-        int id PK
-        string nama
-        string email
-        string telepon
-        string alamat
+        Int id PK
+        String nama
+        String nomor_telepon
+        String alamat
+        DateTime created_at
     }
 
-    Perangkat ||--o{ TiketServis : "diperbaiki di"
+    Perangkat ||--o{ TiketServis : "perangkat_id"
     Perangkat {
-        int id PK
-        int customer_id FK
-        string jenis_perangkat
-        string merk
-        string nomor_seri
+        Int id PK
+        Int customer_id FK
+        String jenis_perangkat
+        String merek
+        String model
+        String serial_number
+        DateTime created_at
     }
 
-    TiketServis ||--o{ Diagnosis : "memiliki"
-    TiketServis ||--o{ LogPerbaikan : "mencatat"
-    TiketServis ||--o{ TiketSparepart : "menggunakan"
-    TiketServis ||--o| Invoice : "ditagihkan"
+    TiketServis ||--o| Diagnosis : "tiket_id"
+    TiketServis ||--o{ LogPerbaikan : "tiket_id"
+    TiketServis ||--o{ PenggunaanSparepart : "tiket_id"
+    TiketServis ||--o| Invoice : "tiket_id"
     TiketServis {
-        int id PK
-        int customer_id FK
-        int perangkat_id FK
-        int teknisi_id FK
-        string keluhan
-        string status "Diterima, Dalam Perbaikan, Selesai, dll"
-        string nomor_resi "Unik untuk Tracking"
+        Int id PK
+        String nomor_tiket
+        Int perangkat_id FK
+        Int teknisi_id FK
+        String keluhan
+        String kelengkapan
+        Json foto_kondisi
+        String status
+        DateTime created_at
     }
 
-    Sparepart ||--o{ TiketSparepart : "digunakan pada"
-    Sparepart {
-        int id PK
-        string nama
-        string kategori
-        int stok
-        int harga
-    }
-
-    TiketSparepart {
-        int id PK
-        int tiket_id FK
-        int sparepart_id FK
-        int jumlah
-        int harga_satuan
+    Diagnosis {
+        Int id PK
+        Int tiket_id FK
+        String masalah
+        String solusi
+        Float estimasi_biaya
+        DateTime created_at
     }
 
     LogPerbaikan {
-        int id PK
-        int tiket_id FK
-        string keterangan
-        string foto_url
-        datetime created_at
+        Int id PK
+        Int tiket_id FK
+        String fase
+        String catatan
+        String foto_url
+        DateTime created_at
+    }
+
+    Brand ||--o{ Sparepart : "brand_id"
+    Brand {
+        Int id PK
+        String nama
+        DateTime created_at
+    }
+
+    Sparepart ||--o{ PenggunaanSparepart : "sparepart_id"
+    Sparepart {
+        Int id PK
+        Int brand_id FK
+        String kategori
+        String nama
+        Int stok
+        Float harga
+        DateTime created_at
+    }
+
+    PenggunaanSparepart {
+        Int id PK
+        Int tiket_id FK
+        Int sparepart_id FK
+        Int jumlah
     }
 
     Invoice {
-        int id PK
-        int tiket_id FK
-        int total_biaya
-        string status_pembayaran "Belum Dibayar, Lunas"
+        Int id PK
+        Int tiket_id FK
+        Float biaya_jasa
+        Float biaya_sparepart
+        Float total_biaya
+        DateTime created_at
+    }
+
+    ActivityLog {
+        Int id PK
+        Int user_id FK
+        String user_nama
+        String action
+        String entity
+        DateTime created_at
     }
 ```
 

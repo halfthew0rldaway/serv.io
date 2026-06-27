@@ -1,0 +1,43 @@
+@startuml
+title Alur Status Tiket Servis - Serv.io
+
+state "Diterima" as S1 : Tiket dibuat oleh Admin.\nTeknisi ditugaskan.
+state "Didiagnosis" as S2 : Teknisi telah mengecek\ndan input hasil diagnosis.
+state "Menunggu Persetujuan" as S3 : Admin menghubungi customer\nvia WA untuk konfirmasi biaya.
+state "Disetujui" as S4 : Customer setuju.\nAdmin dapat menambahkan\ncatatan permintaan customer.
+state "Dalam Perbaikan" as S6 : Teknisi mengerjakan.\nLog wajib diisi.
+state "Selesai" as S7 : Teknisi menyelesaikan.\nAdmin menerbitkan invoice.
+state "Diambil" as S8 : Customer mengambil\nperangkat & membayar.
+state "Dibatalkan" as S5 : Customer menolak\natau batal.
+
+[*] --> S1 : Admin buat tiket
+
+S1 --> S2 : Teknisi input diagnosis\n(wajib isi log diagnosis)
+
+S2 --> S3 : Otomatis setelah diagnosis
+
+S3 --> S4 : Admin konfirmasi (Deal)
+S3 --> S5 : Customer menolak
+
+S4 --> S6 : Admin update status\nke Dalam Perbaikan
+
+S6 --> S7 : Teknisi klik Selesai\n(wajib isi log perbaikan)
+
+S7 --> S8 : Admin update ke Diambil\n(setelah invoice & pembayaran)
+
+S8 --> [*]
+S5 --> [*]
+
+note right of S4
+  Admin dapat menambahkan
+  catatan dari permintaan
+  customer (misal: install
+  software tertentu)
+end note
+
+note right of S6
+  Teknisi wajib mengisi
+  minimal 1 log perbaikan
+  sebelum menyelesaikan
+end note
+@enduml

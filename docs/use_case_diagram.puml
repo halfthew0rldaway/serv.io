@@ -1,0 +1,59 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor Admin
+actor Teknisi
+actor "Customer / Publik" as Customer
+
+rectangle "Sistem Serv.io" {
+  package "Manajemen Data" {
+    usecase UC1 as "Kelola Data Customer"
+    usecase UC2 as "Kelola Data Perangkat"
+    usecase UC3 as "Kelola Stok Sparepart"
+  }
+
+  package "Tiket Servis" {
+    usecase UC4 as "Buat Tiket Servis &\nTugaskan Teknisi"
+    usecase UC5 as "Ambil Alih Tiket\n(Diterima)"
+    usecase UC6 as "Input Diagnosis &\nEstimasi Biaya"
+    usecase UC7 as "Update Status\n(Disetujui / Dalam Perbaikan)"
+    usecase UC8 as "Tambah Catatan Tiket\n(Permintaan Customer)"
+    usecase UC9 as "Input Log &\nDokumentasi Perbaikan"
+    usecase UC10 as "Gunakan Sparepart\npada Tiket"
+    usecase UC11 as "Selesaikan Tiket\n(Dalam Perbaikan -> Selesai)"
+  }
+
+  package "Pembayaran & Laporan" {
+    usecase UC12 as "Terbitkan Invoice"
+    usecase UC13 as "Lihat Dashboard &\nStatistik"
+    usecase UC14 as "Export Log\nAktivitas (CSV)"
+  }
+
+  package "Publik" {
+    usecase UC15 as "Lacak Status Servis\n(No Tiket / No Telepon)"
+  }
+}
+
+' === Admin Privileges ===
+Admin --> UC1
+Admin --> UC2
+Admin --> UC3
+Admin --> UC4
+Admin --> UC7
+Admin --> UC8
+Admin --> UC12
+Admin --> UC13
+Admin --> UC14
+
+' === Teknisi Privileges ===
+Teknisi --> UC5
+Teknisi --> UC6
+Teknisi --> UC9
+Teknisi --> UC10
+Teknisi --> UC11
+Teknisi --> UC13
+
+' === Customer / Publik ===
+Customer --> UC15
+@enduml

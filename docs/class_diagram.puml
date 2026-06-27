@@ -1,0 +1,115 @@
+@startuml
+title Class Diagram - Serv.io
+
+class User {
+  +id : Int <<PK>>
+  +nama : String
+  +email : String <<unique>>
+  +password : String
+  +role : String
+  +reset_password_token : String
+  +reset_password_expires : DateTime
+  +created_at : DateTime
+}
+
+class Customer {
+  +id : Int <<PK>>
+  +nama : String
+  +nomor_telepon : String
+  +alamat : String
+  +created_at : DateTime
+}
+
+class Perangkat {
+  +id : Int <<PK>>
+  +customer_id : Int <<FK>>
+  +jenis_perangkat : String
+  +merek : String
+  +model : String
+  +serial_number : String
+  +created_at : DateTime
+}
+
+class TiketServis {
+  +id : Int <<PK>>
+  +nomor_tiket : String <<unique>>
+  +perangkat_id : Int <<FK>>
+  +teknisi_id : Int <<FK>>
+  +keluhan : Text
+  +kelengkapan : Text
+  +foto_kondisi : Json
+  +status : String
+  +created_at : DateTime
+}
+
+class Diagnosis {
+  +id : Int <<PK>>
+  +tiket_id : Int <<FK, unique>>
+  +masalah : String
+  +solusi : String
+  +estimasi_biaya : Float
+  +created_at : DateTime
+}
+
+class LogPerbaikan {
+  +id : Int <<PK>>
+  +tiket_id : Int <<FK>>
+  +fase : String
+  +catatan : String
+  +foto_url : LongText
+  +created_at : DateTime
+}
+
+class Brand {
+  +id : Int <<PK>>
+  +nama : String <<unique>>
+  +created_at : DateTime
+}
+
+class Sparepart {
+  +id : Int <<PK>>
+  +brand_id : Int <<FK>>
+  +kategori : String
+  +nama : String
+  +stok : Int
+  +harga : Float
+  +created_at : DateTime
+}
+
+class PenggunaanSparepart {
+  +id : Int <<PK>>
+  +tiket_id : Int <<FK>>
+  +sparepart_id : Int <<FK>>
+  +jumlah : Int
+}
+
+class Invoice {
+  +id : Int <<PK>>
+  +tiket_id : Int <<FK, unique>>
+  +biaya_jasa : Float
+  +biaya_sparepart : Float
+  +total_biaya : Float
+  +created_at : DateTime
+}
+
+class ActivityLog {
+  +id : Int <<PK>>
+  +user_id : Int <<FK>>
+  +user_nama : String
+  +action : String
+  +entity : String
+  +created_at : DateTime
+}
+
+' === Relationships ===
+Customer "1" -- "*" Perangkat : memiliki
+Perangkat "1" -- "*" TiketServis : terkait
+User "1" -- "*" TiketServis : ditugaskan ke
+User "1" -- "*" ActivityLog : mencatat
+TiketServis "1" -- "0..1" Diagnosis : memiliki
+TiketServis "1" -- "*" LogPerbaikan : mencatat
+TiketServis "1" -- "*" PenggunaanSparepart : menggunakan
+TiketServis "1" -- "0..1" Invoice : ditagihkan
+Brand "1" -- "*" Sparepart : memproduksi
+Sparepart "1" -- "*" PenggunaanSparepart : digunakan
+@enduml
