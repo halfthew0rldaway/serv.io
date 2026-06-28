@@ -1,16 +1,58 @@
-# Serv.io
-Sistem Manajemen Bengkel Perbaikan Perangkat Elektronik dengan fitur terintegrasi mulai dari pendaftaran customer, inventarisasi suku cadang, pelacakan status perbaikan, log pengerjaan teknisi, hingga pembuatan invoice pembayaran.
+<div align="center">
+    <img src="logo undira.png" alt="Logo" width="120" />
+    <h1>Serv.io Platform</h1>
+    <p>Enterprise-grade IT Repair & Service Center Management System</p>
 
-## Tech Stack
-- **Frontend**: React.js (Vite), Tailwind CSS, Recharts.
-- **Backend**: Node.js, Express.js.
-- **Database**: MySQL dengan Prisma ORM.
-- **Autentikasi**: JSON Web Token (JWT).
+<!-- Tech Stack Badges -->
+<p align="center">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind" />
+  <img src="https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E" alt="Vite" />
+  <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" alt="Node.js" />
+  <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express" />
+  <img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" />
+  <img src="https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white" alt="Prisma" />
+</p>
+
+</div>
 
 ---
 
-## Struktur Relasi Database (ERD)
-Sistem ini menggunakan struktur relasional untuk menghubungkan entitas Customer, Perangkat, Tiket Servis, Sparepart, dan Log Perbaikan. 
+## System Previews
+
+<div align="center">
+    <img src="ss/preview-1.png" alt="Dashboard Preview" width="800" style="border-radius: 8px; margin-bottom: 15px;" />
+    <br/>
+    <img src="ss/preview-2.png" alt="Ticket Detail Preview" width="800" style="border-radius: 8px; margin-bottom: 15px;" />
+    <br/>
+    <img src="ss/preview-3.png" alt="Invoice Preview" width="800" style="border-radius: 8px;" />
+</div>
+
+---
+
+## Role-Based Access Control (RBAC) Comparison
+
+Serv.io utilizes strict Segregation of Duties to maintain data integrity and operational security.
+
+| Feature Module | Admin Workspace | Technician Portal | Public Tracking |
+| :--- | :---: | :---: | :---: |
+| **Pricing Tier / Access** | **Managerial** | **Operational** | **Read-Only** |
+| Customer & Device Registration | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | - | - |
+| Master Data (Spareparts) | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | - | - |
+| Issue Diagnosis & Estimates | - | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | - |
+| Activity Logging & Documentation | - | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | - |
+| Sparepart Consumption | - | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | - |
+| Invoice Generation | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | - | - |
+| Ticket Assignment Override | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | - | - |
+| Global Analytics Dashboard | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> (Assigned Only) | - |
+| Ticket Tracking Status | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> (Via Token) |
+
+---
+
+## Architectural Diagrams
+
+### Entity Relationship Diagram (ERD)
+The system employs a normalized relational structure to map entities efficiently.
 
 ```mermaid
 erDiagram
@@ -123,126 +165,75 @@ erDiagram
     }
 ```
 
----
-
-## Diagram Alur (System Flowchart)
-
+### System Operational Flow
 ```mermaid
 flowchart TD
-    A[Customer Datang bawa Perangkat] --> B{Pernah Terdaftar?};
-    B -- Belum --> C[Admin Mendaftarkan Data Customer];
-    B -- Sudah --> D[Admin Mendaftarkan Data Perangkat Baru/Pilih yang Ada];
+    A[Customer Arrival] --> B{Existing Customer?};
+    B -- No --> C[Admin Registers Customer Profile];
+    B -- Yes --> D[Admin Registers Target Device];
     C --> D;
-    D --> E[Admin Membuat Tiket Servis & Menugaskan Teknisi];
-    E --> F[Generate Nomor Resi Tracking];
+    D --> E[Admin Generates Service Ticket];
+    E --> F[System Mints Tracking Token];
     
-    F --> G[Teknisi Melakukan Diagnosis Perangkat];
-    G --> H{Butuh Suku Cadang?};
-    H -- Ya --> I[Teknisi Request Sparepart];
-    I --> J[Persetujuan Cost oleh Customer];
-    J -- Disetujui --> K;
-    H -- Tidak --> K[Teknisi Memulai Perbaikan];
+    F --> G[Technician Conducts Diagnosis];
+    G --> H{Requires Spareparts?};
+    H -- Yes --> I[Technician Drafts Cost Estimate];
+    I --> J[Customer Approval Required];
+    J -- Approved --> K;
+    H -- No --> K[Technician Initiates Repair Process];
     
-    K --> L[Teknisi Upload Foto & Catat Log Perbaikan berkala];
-    L --> M[Perbaikan Selesai];
-    M --> N[Admin Menerbitkan Invoice];
-    N --> O[Customer Membayar & Mengambil Barang];
+    K --> L[Technician Injects Periodic Repair Logs];
+    L --> M[Repair Completion Marked];
+    M --> N[Admin Generates Official Invoice];
+    N --> O[Customer Finalizes Payment & Handover];
 ```
 
 ---
 
-## Alur Pengguna (Use Case Diagram)
+## Deployment & Installation Guide
 
-```mermaid
-flowchart LR
-    Admin([Admin])
-    Teknisi([Teknisi])
-    Customer([Customer / Publik])
+### Prerequisites
+- Node.js (v18.x or superior)
+- MySQL Server Environment (Native / Containerized)
+- NPM or Yarn Package Manager
 
-    subgraph System ["Serv.io System"]
-        UC1(Kelola Data Customer)
-        UC2(Kelola Data Perangkat)
-        UC3(Kelola Stok Sparepart)
-        UC4(Buat Tiket Servis & Tugaskan Teknisi)
-        UC5(Ambil Alih Tiket)
-        UC6(Input Diagnosis & Estimasi Biaya)
-        UC7(Update Status: Disetujui / Dalam Perbaikan)
-        UC8(Tambah Catatan Tiket / Permintaan Customer)
-        UC9(Input Log & Dokumentasi Perbaikan)
-        UC10(Gunakan Sparepart pada Tiket)
-        UC11(Selesaikan Tiket)
-        UC12(Terbitkan Invoice)
-        UC13(Lihat Dashboard & Statistik)
-        UC14(Export Log Aktivitas CSV)
-        UC15(Lacak Status Servis)
-    end
+### 1. Database Initialization
+Deploy a fresh MySQL database schema named `repair_workshop` via your preferred administration tool.
 
-    Admin --> UC1
-    Admin --> UC2
-    Admin --> UC3
-    Admin --> UC4
-    Admin --> UC7
-    Admin --> UC8
-    Admin --> UC12
-    Admin --> UC13
-    Admin --> UC14
-
-    Teknisi --> UC5
-    Teknisi --> UC6
-    Teknisi --> UC9
-    Teknisi --> UC10
-    Teknisi --> UC11
-    Teknisi --> UC13
-
-    Customer --> UC15
+### 2. Backend Orchestration
+Navigate into the backend subsystem to configure the API and ORM layer.
+```bash
+cd backend
+npm install
+```
+Configure your environment variables by generating a `.env` file:
+```env
+DATABASE_URL="mysql://root:@localhost:3306/repair_workshop"
+JWT_SECRET="secure_enterprise_key"
+PORT=5000
+```
+Synchronize the Prisma schema and seed the initial administrative datasets:
+```bash
+npx prisma db push
+node seed.js
+npm run dev
 ```
 
+### 3. Frontend Orchestration
+Navigate into the React subsystem to compile the client application.
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+### System Credentials
+The `seed.js` script provisions default accounts for immediate system access:
+- **Administrator**: `admin@repair.com` (Pass: `password123`)
+- **Lead Technician**: `teknisi@repair.com` (Pass: `password123`)
+
 ---
-
-## Cara Instalasi dan Setup
-
-### Prasyarat Sistem
-- Node.js versi 18 atau lebih baru.
-- MySQL Server (XAMPP / Docker).
-
-### 1. Setup Database
-1. Buka MySQL server.
-2. Buat database kosong dengan nama `repair_workshop` (atau nama lain).
-
-### 2. Setup Backend
-1. Buka terminal, masuk ke direktori `backend`.
-2. Jalankan perintah `npm install`.
-3. Buat file `.env` di dalam folder `backend` dengan format berikut:
-   ```env
-   DATABASE_URL="mysql://root:@localhost:3306/repair_workshop"
-   JWT_SECRET="rahasia_super_aman"
-   PORT=5000
-   ```
-   *Catatan: Sesuaikan username (root), password, dan nama database jika berbeda.*
-4. Sinkronisasi struktur database menggunakan Prisma:
-   ```bash
-   npx prisma db push
-   ```
-5. Masukkan data awal (akun Admin, Teknisi, dan data dummy) ke dalam database:
-   ```bash
-   node seed.js
-   ```
-6. Jalankan server backend:
-   ```bash
-   npm run dev
-   ```
-   *Server akan berjalan di http://localhost:5000.*
-
-### 3. Setup Frontend
-1. Buka terminal baru, masuk ke direktori `frontend`.
-2. Jalankan perintah `npm install`.
-3. Jalankan server frontend:
-   ```bash
-   npm run dev
-   ```
-4. Buka URL yang diberikan di terminal (biasanya `http://localhost:5173`) pada browser.
-
-### Akun Akses Default
-Gunakan akun berikut untuk login pertama kali (dibuat otomatis oleh script database):
-- **Admin**: Email `admin@repair.com` | Password `password123`
-- **Teknisi**: Email `teknisi@repair.com` | Password `password123`
+<div align="center">
+    <p>Developed by Universitas Dian Nusantara Development Team</p>
+    <p>Wisnu Widya Pradana | Muhammad Aditya | Rhio Isma Rizky Aziz</p>
+</div>
