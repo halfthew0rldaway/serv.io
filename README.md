@@ -234,6 +234,10 @@ The `seed.js` script provisions default accounts for immediate system access:
 
 ---
 <div align="center">
-    <p>Developed by Universitas Dian Nusantara Development Team</p>
-    <p>Wisnu Widya Pradana | Muhammad Aditya | Rhio Isma Rizky Aziz</p>
+    <h3>Project Developers (Universitas Dian Nusantara)</h3>
+    <p>
+        <strong>Wisnu Widya Pradana</strong> (411231088) <br>
+        <strong>Muhammad Aditya</strong> (411231139) <br>
+        <strong>Rhio Isma Rizky Aziz</strong> (411231085)
+    </p>
 </div>
