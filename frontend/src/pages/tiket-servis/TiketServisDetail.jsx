@@ -438,7 +438,7 @@ export default function TiketServisDetail() {
                 </Link>
             )}
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:h-[650px] mb-6">
                 {/* Log Perbaikan */}
                 <div className="lg:col-span-1 bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col h-full">
                     <div className="flex items-center justify-between mb-5 pb-4 border-b border-slate-100">
@@ -458,10 +458,10 @@ export default function TiketServisDetail() {
                             </Link>
                         </div>
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar min-h-0">
                         {tiket.log_perbaikan?.length > 0 ? (
                             <div className="space-y-4">
-                                {tiket.log_perbaikan.slice(0, 3).map((log, index) => {
+                                {tiket.log_perbaikan.map((log, index) => {
                                     let dotColor = "bg-blue-500";
                                     let badgeColor = "bg-blue-100 text-blue-700";
                                     let label = "Perbaikan";
@@ -479,7 +479,7 @@ export default function TiketServisDetail() {
                                     return (
                                         <div key={log.id} className="relative pl-6 pb-4 last:pb-0">
                                             {/* Timeline line */}
-                                            {index !== tiket.log_perbaikan.slice(0, 3).length - 1 && (
+                                            {index !== tiket.log_perbaikan.length - 1 && (
                                                 <div className="absolute left-[7px] top-6 bottom-[-8px] w-px bg-slate-200"></div>
                                             )}
                                             {/* Timeline dot */}
@@ -519,16 +519,16 @@ export default function TiketServisDetail() {
                     </div>
                 </div>
 
-                <div className="lg:col-span-2 space-y-6">
+                <div className="lg:col-span-2 flex flex-col gap-6 h-full">
                     {/* Penggunaan Sparepart */}
-                    <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                    <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col flex-1 min-h-0">
                         <div className="flex items-center gap-2 mb-5 pb-4 border-b border-slate-100">
                             <Package className="w-5 h-5 text-indigo-500" />
                             <h2 className="text-base font-bold text-slate-900">Penggunaan Sparepart</h2>
                         </div>
 
                         {tiket.penggunaan_sparepart?.length > 0 ? (
-                            <div className="overflow-x-auto mb-6">
+                            <div className="flex-1 overflow-auto mb-6 custom-scrollbar min-h-0">
                                 <table className="w-full text-sm whitespace-nowrap">
                                     <thead>
                                         <tr className="text-left text-slate-500 border-b border-slate-200 bg-slate-50/50">
@@ -568,7 +568,7 @@ export default function TiketServisDetail() {
 
                         {/* Form tambah sparepart */}
                         {(isTeknisi || isAdmin) && tiket.status === "dalam_perbaikan" && (
-                            <div className="bg-indigo-50/30 p-5 rounded-xl border border-indigo-100">
+                            <div className="bg-indigo-50/30 p-5 rounded-xl border border-indigo-100 shrink-0 mt-auto">
                                 <h3 className="text-sm font-bold text-indigo-900 mb-3">Tambah Penggunaan Suku Cadang</h3>
                                 <form onSubmit={handleUseSparepart} className="flex flex-col sm:flex-row gap-3 items-end">
                                     <div className="flex-1 w-full">
@@ -650,7 +650,7 @@ export default function TiketServisDetail() {
 
                     {/* Invoice */}
                     {tiket.invoice && (
-                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 shrink-0">
                             <div className="flex items-center gap-2 mb-5 pb-4 border-b border-slate-100">
                                 <FileCheck className="w-5 h-5 text-emerald-500" />
                                 <h2 className="text-base font-bold text-slate-900">Tagihan Pembayaran</h2>

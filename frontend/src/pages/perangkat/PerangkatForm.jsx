@@ -134,10 +134,13 @@ export default function PerangkatForm() {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
-                            <Box className="w-4 h-4 text-slate-400" />
-                            Merek <span className="text-red-500">*</span>
-                        </label>
+                        <div className="flex justify-between items-end mb-2">
+                            <label className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                                <Box className="w-4 h-4 text-slate-400" />
+                                Merek <span className="text-red-500">*</span>
+                            </label>
+                            <span className="text-[11px] text-slate-400">Maksimal 50 karakter</span>
+                        </div>
                         <input
                             type="text"
                             value={form.merek}
@@ -151,10 +154,13 @@ export default function PerangkatForm() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label className="block text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
-                            <MonitorSmartphone className="w-4 h-4 text-slate-400" />
-                            Model <span className="text-red-500">*</span>
-                        </label>
+                        <div className="flex justify-between items-end mb-2">
+                            <label className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                                <MonitorSmartphone className="w-4 h-4 text-slate-400" />
+                                Model <span className="text-red-500">*</span>
+                            </label>
+                            <span className="text-[11px] text-slate-400">Maksimal 50 karakter</span>
+                        </div>
                         <input
                             type="text"
                             value={form.model}
@@ -166,10 +172,13 @@ export default function PerangkatForm() {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
-                            <Hash className="w-4 h-4 text-slate-400" />
-                            Serial Number
-                        </label>
+                        <div className="flex justify-between items-end mb-2">
+                            <label className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                                <Hash className="w-4 h-4 text-slate-400" />
+                                Serial Number
+                            </label>
+                            <span className="text-[11px] text-slate-400">Maksimal 100 karakter</span>
+                        </div>
                         <input
                             type="text"
                             value={form.serial_number}

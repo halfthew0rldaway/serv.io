@@ -77,10 +77,13 @@ export default function CustomerForm() {
 
             <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 space-y-6">
                 <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
-                        <User className="w-4 h-4 text-slate-400" />
-                        Nama Lengkap <span className="text-red-500">*</span>
-                    </label>
+                    <div className="flex justify-between items-end mb-2">
+                        <label className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                            <User className="w-4 h-4 text-slate-400" />
+                            Nama Lengkap <span className="text-red-500">*</span>
+                        </label>
+                        <span className="text-[11px] text-slate-400">Min 3 - Max 100 karakter</span>
+                    </div>
                     <input
                         type="text"
                         value={form.nama}
@@ -92,10 +95,13 @@ export default function CustomerForm() {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
-                        <Phone className="w-4 h-4 text-slate-400" />
-                        Nomor Telepon <span className="text-red-500">*</span>
-                    </label>
+                    <div className="flex justify-between items-end mb-2">
+                        <label className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                            <Phone className="w-4 h-4 text-slate-400" />
+                            Nomor Telepon <span className="text-red-500">*</span>
+                        </label>
+                        <span className="text-[11px] text-slate-400">Hanya angka, 10-13 digit</span>
+                    </div>
                     <input
                         type="text"
                         value={form.nomor_telepon}
@@ -107,10 +113,13 @@ export default function CustomerForm() {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
-                        <MapPin className="w-4 h-4 text-slate-400" />
-                        Alamat
-                    </label>
+                    <div className="flex justify-between items-end mb-2">
+                        <label className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                            <MapPin className="w-4 h-4 text-slate-400" />
+                            Alamat
+                        </label>
+                        <span className="text-[11px] text-slate-400">Maksimal 255 karakter</span>
+                    </div>
                     <textarea
                         value={form.alamat}
                         onChange={(e) => setForm({ ...form, alamat: e.target.value })}

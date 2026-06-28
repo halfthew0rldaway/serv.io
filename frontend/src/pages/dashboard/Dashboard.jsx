@@ -14,9 +14,14 @@ import {
     Wrench,
     Activity,
     Clock,
-    Download
+    Download,
+    Database,
+    ChevronDown,
+    FileJson,
+    FileSpreadsheet
 } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, PieChart, Pie, Legend } from 'recharts';
+import * as XLSX from 'xlsx';
 
 function StatCard({ label, value, icon: Icon, color = "blue" }) {
     const colors = {
@@ -98,6 +103,7 @@ export default function Dashboard() {
     const { isAdmin, user } = useAuth();
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [exportDropdownOpen, setExportDropdownOpen] = useState(false);
 
     useEffect(() => {
         let isMounted = true;
@@ -151,10 +157,82 @@ export default function Dashboard() {
     if (isAdmin) {
         return (
             <div className="space-y-6">
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                     <div>
                         <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Halo, {user?.nama}! 👋</h1>
                         <p className="text-sm text-slate-500 mt-1">Selamat datang di Dashboard Admin. Berikut ringkasan performa sistem hari ini.</p>
+                    </div>
+                    
+                    {/* Export Dropdown Group */}
+                    <div className="relative">
+                        <button 
+                            onClick={() => setExportDropdownOpen(!exportDropdownOpen)}
+                            className="flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-semibold transition-all shadow-sm"
+                        >
+                            <Database className="w-4 h-4" />
+                            <span>Backup Database</span>
+                            <ChevronDown className="w-4 h-4 opacity-70" />
+                        </button>
+
+                        {exportDropdownOpen && (
+                            <div className="absolute right-0 top-full mt-2 w-48 bg-white border border-slate-200 shadow-xl rounded-xl overflow-hidden z-50">
+                                <div className="py-1">
+                                    <button
+                                        onClick={async () => {
+                                            setExportDropdownOpen(false);
+                                            try {
+                                                const res = await api.get('/dashboard/database/export');
+                                                const dbData = res.data;
+                                                delete dbData.exportedAt;
+                                                
+                                                const wb = XLSX.utils.book_new();
+                                                
+                                                for (const key of Object.keys(dbData)) {
+                                                    if (Array.isArray(dbData[key]) && dbData[key].length > 0) {
+                                                        const ws = XLSX.utils.json_to_sheet(dbData[key]);
+                                                        XLSX.utils.book_append_sheet(wb, ws, key.substring(0, 31)); // excel sheet names max 31 chars
+                                                    }
+                                                }
+                                                
+                                                XLSX.writeFile(wb, `Servio_Backup_${new Date().toISOString().split('T')[0]}.xlsx`);
+                                                toast.success("Database diekspor ke Excel!");
+                                            } catch (error) {
+                                                console.error("Gagal export excel", error);
+                                                toast.error("Gagal mengekspor database ke Excel");
+                                            }
+                                        }}
+                                        className="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 hover:text-emerald-600 flex items-center gap-2 transition-colors font-medium"
+                                    >
+                                        <FileSpreadsheet className="w-4 h-4" />
+                                        Export as Excel
+                                    </button>
+                                    <button
+                                        onClick={async () => {
+                                            setExportDropdownOpen(false);
+                                            try {
+                                                const res = await api.get('/dashboard/database/export', {
+                                                    responseType: 'blob'
+                                                });
+                                                const url = window.URL.createObjectURL(new Blob([res.data]));
+                                                const link = document.createElement('a');
+                                                link.href = url;
+                                                link.setAttribute('download', `servio_db_backup_${new Date().toISOString().split('T')[0]}.json`);
+                                                document.body.appendChild(link);
+                                                link.click();
+                                                link.parentNode.removeChild(link);
+                                            } catch (error) {
+                                                console.error("Gagal export JSON", error);
+                                                toast.error("Gagal mengekspor database JSON");
+                                            }
+                                        }}
+                                        className="w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 hover:text-amber-600 flex items-center gap-2 transition-colors font-medium border-t border-slate-100"
+                                    >
+                                        <FileJson className="w-4 h-4" />
+                                        Export as JSON
+                                    </button>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
 

@@ -184,4 +184,48 @@ async function exportActivities(req, res) {
     }
 }
 
-module.exports = { adminDashboard, teknisiDashboard, teknisiList, exportActivities };
+async function exportDatabase(req, res) {
+    try {
+        const [
+            users, customers, perangkats, tiketServis, diagnosis, logPerbaikans,
+            brands, spareparts, penggunaanSpareparts, invoices, activityLogs
+        ] = await Promise.all([
+            prisma.user.findMany(),
+            prisma.customer.findMany(),
+            prisma.perangkat.findMany(),
+            prisma.tiketServis.findMany(),
+            prisma.diagnosis.findMany(),
+            prisma.logPerbaikan.findMany(),
+            prisma.brand.findMany(),
+            prisma.sparepart.findMany(),
+            prisma.penggunaanSparepart.findMany(),
+            prisma.invoice.findMany(),
+            prisma.activityLog.findMany(),
+        ]);
+
+        const dbExport = {
+            users,
+            customers,
+            perangkats,
+            tiketServis,
+            diagnosis,
+            logPerbaikans,
+            brands,
+            spareparts,
+            penggunaanSpareparts,
+            invoices,
+            activityLogs,
+            exportedAt: new Date().toISOString()
+        };
+
+        const jsonString = JSON.stringify(dbExport, null, 2);
+        
+        res.setHeader("Content-Type", "application/json");
+        res.setHeader("Content-Disposition", `attachment; filename=servio_db_backup_${new Date().toISOString().split('T')[0]}.json`);
+        return res.send(jsonString);
+    } catch (error) {
+        return res.status(500).json({ message: "Gagal mengekspor database", error: error.message });
+    }
+}
+
+module.exports = { adminDashboard, teknisiDashboard, teknisiList, exportActivities, exportDatabase };

@@ -114,10 +114,13 @@ export default function TiketServisForm() {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
-                        <MessageSquare className="w-4 h-4 text-slate-400" />
-                        Keluhan <span className="text-red-500">*</span>
-                    </label>
+                    <div className="flex justify-between items-end mb-2">
+                        <label className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                            <MessageSquare className="w-4 h-4 text-slate-400" />
+                            Keluhan <span className="text-red-500">*</span>
+                        </label>
+                        <span className="text-[11px] text-slate-400">Min 10 - Max 1000 karakter</span>
+                    </div>
                     <textarea
                         value={form.keluhan}
                         onChange={(e) => setForm({ ...form, keluhan: e.target.value })}
@@ -129,10 +132,13 @@ export default function TiketServisForm() {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
-                        <Package className="w-4 h-4 text-slate-400" />
-                        Kelengkapan Perangkat
-                    </label>
+                    <div className="flex justify-between items-end mb-2">
+                        <label className="text-sm font-semibold text-slate-700 flex items-center gap-2">
+                            <Package className="w-4 h-4 text-slate-400" />
+                            Kelengkapan Perangkat
+                        </label>
+                        <span className="text-[11px] text-slate-400">Maksimal 500 karakter</span>
+                    </div>
                     <textarea
                         value={form.kelengkapan}
                         onChange={(e) => setForm({ ...form, kelengkapan: e.target.value })}

@@ -187,10 +187,13 @@ export default function Login() {
 
                     <motion.div variants={itemVariants} className="mt-8 p-4 bg-slate-50 border border-slate-100 rounded-lg text-xs text-slate-500">
                         <p className="font-medium text-slate-700 mb-1.5 flex items-center gap-1.5"><ShieldCheck className="w-3 h-3"/> Akun Demo</p>
-                        <div className="flex flex-col gap-1">
-                            <span className="flex justify-between"><span>Admin:</span> <span className="font-mono bg-white px-1.5 rounded border border-slate-200 text-[10px]">411231088@mahasiswa.undira.ac.id</span></span>
-                            <span className="flex justify-between"><span>Teknisi:</span> <span className="font-mono bg-white px-1.5 rounded border border-slate-200">teknisi1@workshop.com</span></span>
-                            <span className="text-[10px] text-slate-400 mt-1">Password: password123</span>
+                        <div className="flex flex-col gap-1.5">
+                            <span className="flex justify-between items-center"><span>Admin:</span> <span className="font-mono bg-white px-1.5 py-0.5 rounded border border-slate-200 text-[10px]">411231088@mahasiswa.undira.ac.id</span></span>
+                            <span className="flex justify-between items-center"><span>Teknisi 1:</span> <span className="font-mono bg-white px-1.5 py-0.5 rounded border border-slate-200 text-[10px]">teknisi1@workshop.com</span></span>
+                            <span className="flex justify-between items-center"><span>Teknisi 2:</span> <span className="font-mono bg-white px-1.5 py-0.5 rounded border border-slate-200 text-[10px]">teknisi2@workshop.com</span></span>
+                            <span className="flex justify-between items-center"><span>Teknisi 3:</span> <span className="font-mono bg-white px-1.5 py-0.5 rounded border border-slate-200 text-[10px]">teknisi3@workshop.com</span></span>
+                            <div className="h-px bg-slate-200 my-0.5"></div>
+                            <span className="text-[10px] text-slate-400 font-medium">Password untuk semua akun: <span className="text-slate-600 font-mono">password123</span></span>
                         </div>
                     </motion.div>
                 </motion.div>
