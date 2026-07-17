@@ -367,6 +367,26 @@ async function main() {
         }
     }
 
+    console.log("6. Membuat Activity Logs...");
+    const actions = ["Login sistem", "Membuat Tiket Baru", "Update Status Tiket", "Menambahkan Diagnosis", "Menambahkan Log Perbaikan", "Membuat Invoice", "Logout sistem"];
+    const entities = ["User Auth", "TiketServis", "Diagnosis", "LogPerbaikan", "Invoice"];
+    
+    for (let i = 0; i < 30; i++) {
+        const user = i % 2 === 0 ? admin : teknisis[Math.floor(Math.random() * teknisis.length)];
+        const actionIdx = Math.floor(Math.random() * actions.length);
+        const entityIdx = Math.floor(Math.random() * entities.length);
+        
+        await prisma.activityLog.create({
+            data: {
+                user_id: user.id,
+                user_nama: user.nama,
+                action: actions[actionIdx],
+                entity: entities[entityIdx],
+                created_at: randomDate(new Date(Date.now() - 30 * 86400000), new Date())
+            }
+        });
+    }
+
     console.log("Seeding data realistis berhasil diselesaikan! 🚀");
 }
 

@@ -22,3 +22,8 @@ backend/public/uploads/
 .vscode/
 .idea/
 *.log
+
+# Dokumen dan Presentasi
+docs/
+req/
+presentation/
