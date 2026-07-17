@@ -1,7 +1,7 @@
 <div align="center">
     <img src="logo undira.png" alt="Logo" width="120" />
-    <h1>Serv.io Platform</h1>
-    <p>Enterprise-grade IT Repair & Service Center Management System</p>
+    <h1>Platform Serv.io</h1>
+    <p>Sistem Manajemen Pusat Servis & Perbaikan IT Skala Enterprise</p>
 
 <!-- Tech Stack Badges -->
 <p align="center">
@@ -18,7 +18,7 @@
 
 ---
 
-## System Previews
+## Pratinjau Sistem
 
 <div align="center">
     <img src="ss/preview-1.png" alt="Dashboard Preview" width="800" style="border-radius: 8px; margin-bottom: 15px;" />
@@ -30,29 +30,29 @@
 
 ---
 
-## Role-Based Access Control (RBAC) Comparison
+## Perbandingan Role-Based Access Control (RBAC)
 
-Serv.io utilizes strict Segregation of Duties to maintain data integrity and operational security.
+Serv.io menerapkan Pemisahan Tugas (Segregation of Duties) yang ketat untuk menjaga integritas data dan keamanan operasional.
 
-| Feature Module | Admin Workspace | Technician Portal | Public Tracking |
+| Modul Fitur | Workspace Admin | Portal Teknisi | Pelacakan Publik |
 | :--- | :---: | :---: | :---: |
-| **Pricing Tier / Access** | **Managerial** | **Operational** | **Read-Only** |
-| Customer & Device Registration | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | - | - |
-| Master Data (Spareparts) | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | - | - |
-| Issue Diagnosis & Estimates | - | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | - |
-| Activity Logging & Documentation | - | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | - |
-| Sparepart Consumption | - | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | - |
-| Invoice Generation | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | - | - |
-| Ticket Assignment Override | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | - | - |
-| Global Analytics Dashboard | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> (Assigned Only) | - |
-| Ticket Tracking Status | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> (Via Token) |
+| **Tingkat Akses** | **Manajerial** | **Operasional** | **Hanya Baca** |
+| Registrasi Customer & Perangkat | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | - | - |
+| Data Master (Sparepart) | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | - | - |
+| Diagnosis Masalah & Estimasi | - | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | - |
+| Pencatatan Aktivitas & Dokumentasi | - | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | - |
+| Penggunaan Sparepart | - | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | - |
+| Pembuatan Invoice | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | - | - |
+| Penugasan Tiket Servis | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | - | - |
+| Dashboard Analitik Global | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> (Hanya yang Ditugaskan) | - |
+| Status Pelacakan Tiket | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> | <img src="https://raw.githubusercontent.com/FortAwesome/Font-Awesome/6.x/svgs/solid/check.svg" width="16" height="16"> (Via Token) |
 
 ---
 
-## Architectural Diagrams
+## Diagram Arsitektur
 
 ### Entity Relationship Diagram (ERD)
-The system employs a normalized relational structure to map entities efficiently.
+Sistem menggunakan struktur relasional yang dinormalisasi untuk memetakan entitas secara efisien.
 
 ```mermaid
 erDiagram
@@ -165,76 +165,76 @@ erDiagram
     }
 ```
 
-### System Operational Flow
+### Alur Operasional Sistem
 ```mermaid
 flowchart TD
-    A[Customer Arrival] --> B{Existing Customer?};
-    B -- No --> C[Admin Registers Customer Profile];
-    B -- Yes --> D[Admin Registers Target Device];
+    A[Customer Datang] --> B{Customer Lama?};
+    B -- Tidak --> C[Admin Mendaftarkan Profil Customer];
+    B -- Ya --> D[Admin Mendaftarkan Perangkat Target];
     C --> D;
-    D --> E[Admin Generates Service Ticket];
-    E --> F[System Mints Tracking Token];
+    D --> E[Admin Membuat Tiket Servis];
+    E --> F[Sistem Membuat Token Pelacakan];
     
-    F --> G[Technician Conducts Diagnosis];
-    G --> H{Requires Spareparts?};
-    H -- Yes --> I[Technician Drafts Cost Estimate];
-    I --> J[Customer Approval Required];
-    J -- Approved --> K;
-    H -- No --> K[Technician Initiates Repair Process];
+    F --> G[Teknisi Melakukan Diagnosis];
+    G --> H{Butuh Sparepart?};
+    H -- Ya --> I[Teknisi Membuat Estimasi Biaya];
+    I --> J[Menunggu Persetujuan Customer];
+    J -- Disetujui --> K;
+    H -- Tidak --> K[Teknisi Memulai Proses Perbaikan];
     
-    K --> L[Technician Injects Periodic Repair Logs];
-    L --> M[Repair Completion Marked];
-    M --> N[Admin Generates Official Invoice];
-    N --> O[Customer Finalizes Payment & Handover];
+    K --> L[Teknisi Mencatat Log Perbaikan Berkala];
+    L --> M[Perbaikan Ditandai Selesai];
+    M --> N[Admin Membuat Invoice Resmi];
+    N --> O[Customer Melakukan Pembayaran & Serah Terima];
 ```
 
 ---
 
-## Deployment & Installation Guide
+## Panduan Instalasi & Deployment
 
-### Prerequisites
-- Node.js (v18.x or superior)
-- MySQL Server Environment (Native / Containerized)
-- NPM or Yarn Package Manager
+### Prasyarat
+- Node.js (v18.x atau lebih baru)
+- Lingkungan Server MySQL (Native / Container)
+- NPM atau Yarn Package Manager
 
-### 1. Database Initialization
-Deploy a fresh MySQL database schema named `repair_workshop` via your preferred administration tool.
+### 1. Inisialisasi Database
+Buat skema database MySQL baru dengan nama `repair_workshop` menggunakan tool administrasi pilihan Anda.
 
-### 2. Backend Orchestration
-Navigate into the backend subsystem to configure the API and ORM layer.
+### 2. Pengaturan Backend
+Masuk ke subsistem backend untuk mengkonfigurasi API dan layer ORM.
 ```bash
 cd backend
 npm install
 ```
-Configure your environment variables by generating a `.env` file:
+Konfigurasi environment variables dengan membuat file `.env`:
 ```env
 DATABASE_URL="mysql://root:@localhost:3306/repair_workshop"
 JWT_SECRET="secure_enterprise_key"
 PORT=5000
 ```
-Synchronize the Prisma schema and seed the initial administrative datasets:
+Sinkronkan skema Prisma dan jalankan seed untuk data awal:
 ```bash
 npx prisma db push
 node seed.js
 npm run dev
 ```
 
-### 3. Frontend Orchestration
-Navigate into the React subsystem to compile the client application.
+### 3. Pengaturan Frontend
+Masuk ke subsistem React untuk mengkompilasi aplikasi klien.
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-### System Credentials
-The `seed.js` script provisions default accounts for immediate system access:
-- **Administrator**: `admin@repair.com` (Pass: `password123`)
-- **Lead Technician**: `teknisi@repair.com` (Pass: `password123`)
+### Kredensial Sistem
+Script `seed.js` menyediakan akun default untuk akses sistem:
+- **Administrator**: `admin@repair.com` (Password: `password123`)
+- **Teknisi Utama**: `teknisi@repair.com` (Password: `password123`)
 
 ---
 <div align="center">
-    <h3>Project Developers (Universitas Dian Nusantara)</h3>
+    <h3>Pengembang Proyek (Universitas Dian Nusantara)</h3>
     <p>
         <strong>Wisnu Widya Pradana</strong> (411231088) <br>
         <strong>Muhammad Aditya</strong> (411231139) <br>
