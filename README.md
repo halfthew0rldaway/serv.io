@@ -238,7 +238,7 @@ Dalam web Serv.io, proses delegasi servis ke Teknisi sangat fleksibel:
 2. **Ambil Alih Tiket (Self-Assign)**: Jika Admin mengosongkan teknisi pada tiket tersebut (Status: Diterima), maka Teknisi yang sedang login dan melihat ada "Tiket Kosong" dapat langsung menekan tombol **Ambil Alih**. Ini mempercepat proses tanpa perlu menunggu arahan dari Admin.
 
 ```mermaid
-flowchart LR
+flowchart TD
     Start((Mulai)) --> Login[Login ke Sistem]
     Login --> Role{Role User?}
     
@@ -271,47 +271,223 @@ flowchart LR
 
 ---
 
-## Panduan Instalasi & Deployment
+## Panduan Instalasi dan Menjalankan Aplikasi
 
-### Prasyarat
-- Node.js (v18.x atau lebih baru)
-- Lingkungan Server MySQL (Native / Container)
-- NPM atau Yarn Package Manager
+Panduan ini ditulis sedetail mungkin agar pemula sekalipun bisa menjalankan proyek ini. Ikuti langkah-langkah di bawah sesuai sistem operasi yang kamu gunakan.
 
-### 1. Inisialisasi Database
-Buat skema database MySQL baru dengan nama `repair_workshop` menggunakan tool administrasi pilihan Anda.
+### Prasyarat - Software yang Harus Diinstall Terlebih Dahulu
 
-### 2. Pengaturan Backend
-Masuk ke subsistem backend untuk mengkonfigurasi API dan layer ORM.
+Sebelum memulai, pastikan software berikut sudah terpasang di komputer kamu:
+
+| Software | Kegunaan | Link Download |
+| :--- | :--- | :--- |
+| **Node.js** (v18 ke atas) | Runtime JavaScript untuk menjalankan backend dan frontend | [nodejs.org](https://nodejs.org/) — Pilih versi **LTS** |
+| **XAMPP** | Menyediakan server MySQL secara mudah (khusus Windows) | [apachefriends.org](https://www.apachefriends.org/) |
+| **Git** | Untuk meng-clone repository ini | [git-scm.com](https://git-scm.com/) |
+
+> **Cara cek apakah Node.js sudah terinstall:** Buka Terminal / Command Prompt, lalu ketik:
+> ```
+> node -v
+> ```
+> Jika muncul versi (contoh: `v18.17.0`), berarti sudah siap.
+
+---
+
+### Langkah 1: Clone Repository
+
+Buka **Terminal** (Linux) atau **Command Prompt / PowerShell** (Windows), lalu jalankan:
+
 ```bash
-cd backend
-npm install
-```
-Konfigurasi environment variables dengan membuat file `.env`:
-```env
-DATABASE_URL="mysql://root:@localhost:3306/repair_workshop"
-JWT_SECRET="secure_enterprise_key"
-PORT=5000
-```
-Sinkronkan skema Prisma dan jalankan seed untuk data awal:
-```bash
-npx prisma db push
-node seed.js
-npm run dev
+git clone https://github.com/halfthew0rldaway/serv.io.git
+cd serv.io
 ```
 
-### 3. Pengaturan Frontend
-Masuk ke subsistem React untuk mengkompilasi aplikasi klien.
-```bash
-cd frontend
-npm install
-npm run dev
-```
+---
 
-### Kredensial Sistem
-Script `seed.js` menyediakan akun default untuk akses sistem:
-- **Administrator**: `admin@repair.com` (Password: `password123`)
-- **Teknisi Utama**: `teknisi@repair.com` (Password: `password123`)
+### Langkah 2: Nyalakan Server MySQL
+
+<details>
+<summary><h4>🪟 Windows - Menggunakan XAMPP</h4></summary>
+
+1. Buka aplikasi **XAMPP Control Panel**.
+2. Klik tombol **Start** pada baris **MySQL**.
+3. Tunggu hingga statusnya berubah menjadi hijau (artinya MySQL sudah berjalan di port `3306`).
+4. Buka browser, akses **http://localhost/phpmyadmin**.
+5. Di phpMyAdmin, klik tab **"Databases"** di bagian atas.
+6. Pada kolom **"Create database"**, ketik: `repair_workshop`
+7. Klik tombol **Create**.
+
+</details>
+
+<details>
+<summary><h4>🐧 Linux</h4></summary>
+
+1. Buka Terminal.
+2. Jalankan perintah berikut untuk menyalakan MySQL/MariaDB:
+   ```bash
+   sudo systemctl start mariadb
+   # atau jika menggunakan MySQL:
+   sudo systemctl start mysql
+   ```
+3. Buat database baru:
+   ```bash
+   mysql -u root -e "CREATE DATABASE IF NOT EXISTS repair_workshop;"
+   ```
+
+</details>
+
+---
+
+### Langkah 3: Setup dan Jalankan Backend - API Server
+
+<details>
+<summary><h4>🪟 Windows - Command Prompt / PowerShell</h4></summary>
+
+1. Buka **Command Prompt** atau **PowerShell**, lalu masuk ke folder backend:
+   ```cmd
+   cd backend
+   ```
+
+2. Install semua dependency (library yang dibutuhkan):
+   ```cmd
+   npm install
+   ```
+   > Tunggu proses ini selesai. Akan muncul folder `node_modules` di dalam folder `backend`.
+
+3. Buat file konfigurasi `.env`. Ketik perintah berikut **satu per satu**:
+   ```cmd
+   echo DATABASE_URL="mysql://root:@localhost:3306/repair_workshop" > .env
+   echo JWT_SECRET="repair-workshop-secret-key-2026" >> .env
+   echo JWT_EXPIRES_IN="7d" >> .env
+   echo PORT=5001 >> .env
+   ```
+   > **Catatan:** Jika MySQL kamu memiliki password, ganti bagian `root:@` menjadi `root:PASSWORD_KAMU@`.
+
+4. Sinkronkan struktur database (membuat tabel-tabel otomatis):
+   ```cmd
+   npx prisma db push
+   ```
+
+5. Masukkan data awal (data dummy untuk testing):
+   ```cmd
+   node seed.js
+   ```
+   > Jika berhasil, akan muncul pesan: `Seeding data realistis berhasil diselesaikan! 🚀`
+
+6. Jalankan backend server:
+   ```cmd
+   npm run dev
+   ```
+   > Backend akan berjalan di **http://localhost:5001**. **Jangan tutup terminal ini!**
+
+</details>
+
+<details>
+<summary><h4>🐧 Linux</h4></summary>
+
+1. Buka Terminal, masuk ke folder backend:
+   ```bash
+   cd backend
+   ```
+
+2. Install semua dependency:
+   ```bash
+   npm install
+   ```
+
+3. Buat file konfigurasi `.env`:
+   ```bash
+   cat > .env << 'EOF'
+   DATABASE_URL="mysql://root:@localhost:3306/repair_workshop"
+   JWT_SECRET="repair-workshop-secret-key-2026"
+   JWT_EXPIRES_IN="7d"
+   PORT=5001
+   EOF
+   ```
+   > **Catatan:** Jika MySQL kamu memiliki password, ganti bagian `root:@` menjadi `root:PASSWORD_KAMU@`.
+
+4. Sinkronkan struktur database:
+   ```bash
+   npx prisma db push
+   ```
+
+5. Masukkan data awal:
+   ```bash
+   node seed.js
+   ```
+
+6. Jalankan backend server:
+   ```bash
+   npm run dev
+   ```
+   > Backend akan berjalan di **http://localhost:5001**. **Jangan tutup terminal ini!**
+
+</details>
+
+---
+
+### Langkah 4: Setup dan Jalankan Frontend - Tampilan Web
+
+> **Penting:** Buka terminal/command prompt **baru** (jangan menutup terminal backend yang tadi).
+
+<details>
+<summary><h4>🪟 Windows - Command Prompt / PowerShell</h4></summary>
+
+1. Dari folder utama proyek, masuk ke folder frontend:
+   ```cmd
+   cd frontend
+   ```
+
+2. Install semua dependency:
+   ```cmd
+   npm install
+   ```
+
+3. Jalankan frontend:
+   ```cmd
+   npm run dev
+   ```
+
+4. Buka browser, akses: **http://localhost:3000** 🎉
+
+</details>
+
+<details>
+<summary><h4>🐧 Linux</h4></summary>
+
+1. Dari folder utama proyek, masuk ke folder frontend:
+   ```bash
+   cd frontend
+   ```
+
+2. Install semua dependency:
+   ```bash
+   npm install
+   ```
+
+3. Jalankan frontend:
+   ```bash
+   npm run dev
+   ```
+
+4. Buka browser, akses: **http://localhost:3000** 🎉
+
+</details>
+
+---
+
+### Langkah 5: Login ke Sistem
+
+Setelah frontend terbuka di browser, gunakan kredensial berikut untuk masuk:
+
+| Role | Email | Password |
+| :--- | :--- | :--- |
+| **Admin** | `411231088@mahasiswa.undira.ac.id` | `password123` |
+| **Teknisi 1** | `teknisi1@workshop.com` | `password123` |
+| **Teknisi 2** | `teknisi2@workshop.com` | `password123` |
+| **Teknisi 3** | `teknisi3@workshop.com` | `password123` |
+
+> **Fitur Pelacakan Publik (Tanpa Login):** Akses halaman **http://localhost:3000/tracking** untuk melacak status tiket servis menggunakan nomor tiket.
 
 ---
 <div align="center">
