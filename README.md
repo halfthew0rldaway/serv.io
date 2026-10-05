@@ -244,7 +244,7 @@ flowchart LR
     
     %% Alur Admin
     Role -- Admin --> AdminMenu[Dashboard Admin]
-    AdminMenu -->|Kelola Data| MasterData[Input Customer & Perangkat]
+    AdminMenu -->|Kelola Data| MasterData[Input Customer dan Perangkat]
     AdminMenu -->|Penerimaan| BuatTiket[Membuat Tiket Servis Baru]
     BuatTiket --> Assign{Admin Pilih Teknisi?}
     Assign -- Ya --> TungguProses[Tiket Ditugaskan ke Teknisi A]
@@ -253,15 +253,15 @@ flowchart LR
     %% Alur Teknisi
     Role -- Teknisi --> TeknisiMenu[Dashboard Teknisi]
     TeknisiMenu --> CekTiket{Cari Tiket Baru?}
-    CekTiket -- Ada Tiket Kosong --> AmbilAlih[Teknisi Klik "Ambil Alih Tiket"]
+    CekTiket -- Ada Tiket Kosong --> AmbilAlih[Teknisi Klik Ambil Alih Tiket]
     AmbilAlih --> ProsesTiket
     CekTiket -- Cek Tugas Sendiri --> CekTugas[Lihat Tiket Yang Ditugaskan]
     
     TungguProses -.-> CekTugas
-    CekTugas --> ProsesTiket[Mulai Diagnosis & Perbaikan]
+    CekTugas --> ProsesTiket[Mulai Diagnosis dan Perbaikan]
     
     %% Proses Perbaikan Bersama
-    ProsesTiket --> UpdateStatus[Update Status & Tambah Log Perbaikan]
+    ProsesTiket --> UpdateStatus[Update Status dan Tambah Log Perbaikan]
     UpdateStatus --> PakaiPart[Catat Penggunaan Sparepart]
     PakaiPart --> SelesaiServis[Tandai Servis Selesai]
     
