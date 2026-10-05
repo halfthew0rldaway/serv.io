@@ -25,7 +25,43 @@
     <br/>
     <img src="ss/preview-2.png" alt="Ticket Detail Preview" width="800" style="border-radius: 8px; margin-bottom: 15px;" />
     <br/>
-    <img src="ss/preview-3.png" alt="Invoice Preview" width="800" style="border-radius: 8px;" />
+    <img src="ss/preview-3.png" alt="Invoice Preview" width="800" style="border-radius: 8px; margin-bottom: 15px;" />
+    <br/>
+    <details>
+    <summary><b>✨ Lihat Lebih Banyak Screenshot (Klik untuk meluaskan)</b></summary>
+    <br/>
+    <img src="ss/preview-4.png" width="800" style="border-radius: 8px; margin-bottom: 15px;" />
+    <br/>
+    <img src="ss/preview-5.png" width="800" style="border-radius: 8px; margin-bottom: 15px;" />
+    <br/>
+    <img src="ss/preview-6.png" width="800" style="border-radius: 8px; margin-bottom: 15px;" />
+    <br/>
+    <img src="ss/preview-7.png" width="800" style="border-radius: 8px; margin-bottom: 15px;" />
+    <br/>
+    <img src="ss/preview-8.png" width="800" style="border-radius: 8px; margin-bottom: 15px;" />
+    <br/>
+    <img src="ss/preview-9.png" width="800" style="border-radius: 8px; margin-bottom: 15px;" />
+    <br/>
+    <img src="ss/preview-10.png" width="800" style="border-radius: 8px; margin-bottom: 15px;" />
+    <br/>
+    <img src="ss/preview-11.png" width="800" style="border-radius: 8px; margin-bottom: 15px;" />
+    <br/>
+    <img src="ss/preview-12.png" width="800" style="border-radius: 8px; margin-bottom: 15px;" />
+    <br/>
+    <img src="ss/preview-13.png" width="800" style="border-radius: 8px; margin-bottom: 15px;" />
+    <br/>
+    <img src="ss/preview-14.png" width="800" style="border-radius: 8px; margin-bottom: 15px;" />
+    <br/>
+    <img src="ss/preview-15.png" width="800" style="border-radius: 8px; margin-bottom: 15px;" />
+    <br/>
+    <img src="ss/preview-16.png" width="800" style="border-radius: 8px; margin-bottom: 15px;" />
+    <br/>
+    <img src="ss/preview-17.png" width="800" style="border-radius: 8px; margin-bottom: 15px;" />
+    <br/>
+    <img src="ss/preview-18.png" width="800" style="border-radius: 8px; margin-bottom: 15px;" />
+    <br/>
+    <img src="ss/preview-19.png" width="800" style="border-radius: 8px;" />
+    </details>
 </div>
 
 ---
@@ -186,6 +222,51 @@ flowchart TD
     L --> M[Perbaikan Ditandai Selesai];
     M --> N[Admin Membuat Invoice Resmi];
     N --> O[Customer Melakukan Pembayaran & Serah Terima];
+```
+
+### Alur Penggunaan Aplikasi di Web (Web Flow)
+
+Selain dari proses bisnis operasional, berikut adalah bagaimana fitur di dalam web Serv.io digunakan secara aktual oleh Admin dan Teknisi. 
+
+#### Pembagian Tanggung Jawab:
+- **Admin**: Menangani area _front-desk_ dan manajerial. Admin bertugas menambahkan Master Data (Customer, Perangkat, Sparepart, Akun User), membuat Tiket Servis baru ketika ada pelanggan, menugaskan tiket ke teknisi tertentu (bisa manual), serta mengurus penagihan (Invoice) di akhir servis.
+- **Teknisi**: Menangani area operasional _back-end_ perbaikan. Teknisi bisa melihat daftar antrean servis, mendiagnosis masalah, menambahkan catatan perbaikan (_Log_), dan mencatat _sparepart_ apa saja yang digunakan selama perbaikan berlangsung.
+
+#### Fitur Ambil Alih Tiket (Self-Assign vs Admin Assign)
+Dalam web Serv.io, proses delegasi servis ke Teknisi sangat fleksibel:
+1. **Admin Assign (Ditunjuk Admin)**: Saat membuat tiket servis baru atau mengedit tiket yang ada, Admin bisa langsung memilih _dropdown_ nama Teknisi yang akan menangani.
+2. **Ambil Alih Tiket (Self-Assign)**: Jika Admin mengosongkan teknisi pada tiket tersebut (Status: Diterima), maka Teknisi yang sedang login dan melihat ada "Tiket Kosong" dapat langsung menekan tombol **Ambil Alih**. Ini mempercepat proses tanpa perlu menunggu arahan dari Admin.
+
+```mermaid
+flowchart LR
+    Start((Mulai)) --> Login[Login ke Sistem]
+    Login --> Role{Role User?}
+    
+    %% Alur Admin
+    Role -- Admin --> AdminMenu[Dashboard Admin]
+    AdminMenu -->|Kelola Data| MasterData[Input Customer & Perangkat]
+    AdminMenu -->|Penerimaan| BuatTiket[Membuat Tiket Servis Baru]
+    BuatTiket --> Assign{Admin Pilih Teknisi?}
+    Assign -- Ya --> TungguProses[Tiket Ditugaskan ke Teknisi A]
+    Assign -- Tidak --> TiketKosong[Tiket Dibiarkan Kosong]
+    
+    %% Alur Teknisi
+    Role -- Teknisi --> TeknisiMenu[Dashboard Teknisi]
+    TeknisiMenu --> CekTiket{Cari Tiket Baru?}
+    CekTiket -- Ada Tiket Kosong --> AmbilAlih[Teknisi Klik "Ambil Alih Tiket"]
+    AmbilAlih --> ProsesTiket
+    CekTiket -- Cek Tugas Sendiri --> CekTugas[Lihat Tiket Yang Ditugaskan]
+    
+    TungguProses -.-> CekTugas
+    CekTugas --> ProsesTiket[Mulai Diagnosis & Perbaikan]
+    
+    %% Proses Perbaikan Bersama
+    ProsesTiket --> UpdateStatus[Update Status & Tambah Log Perbaikan]
+    UpdateStatus --> PakaiPart[Catat Penggunaan Sparepart]
+    PakaiPart --> SelesaiServis[Tandai Servis Selesai]
+    
+    SelesaiServis --> AdminInvoice[Admin Membuat Invoice]
+    AdminInvoice --> Selesai((Selesai))
 ```
 
 ---
