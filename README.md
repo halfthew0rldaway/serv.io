@@ -482,7 +482,7 @@ Setelah frontend terbuka di browser, gunakan kredensial berikut untuk masuk:
 
 | Role | Email | Password |
 | :--- | :--- | :--- |
-| **Admin** | `411231088@mahasiswa.undira.ac.id` | `password123` |
+| **Admin** | `admin@workshop.com` | `password123` |
 | **Teknisi 1** | `teknisi1@workshop.com` | `password123` |
 | **Teknisi 2** | `teknisi2@workshop.com` | `password123` |
 | **Teknisi 3** | `teknisi3@workshop.com` | `password123` |

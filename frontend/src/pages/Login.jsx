@@ -122,7 +122,7 @@ export default function Login() {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-lg text-sm focus:ring-[3px] focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all placeholder:text-slate-400"
-                                    placeholder="411231088@mahasiswa.undira.ac.id"
+                                    placeholder="admin@workshop.com"
                                     required
                                 />
                             </div>
@@ -188,7 +188,7 @@ export default function Login() {
                     <motion.div variants={itemVariants} className="mt-8 p-4 bg-slate-50 border border-slate-100 rounded-lg text-xs text-slate-500">
                         <p className="font-medium text-slate-700 mb-1.5 flex items-center gap-1.5"><ShieldCheck className="w-3 h-3"/> Akun Demo</p>
                         <div className="flex flex-col gap-1.5">
-                            <span className="flex justify-between items-center"><span>Admin:</span> <span className="font-mono bg-white px-1.5 py-0.5 rounded border border-slate-200 text-[10px]">411231088@mahasiswa.undira.ac.id</span></span>
+                            <span className="flex justify-between items-center"><span>Admin:</span> <span className="font-mono bg-white px-1.5 py-0.5 rounded border border-slate-200 text-[10px]">admin@workshop.com</span></span>
                             <span className="flex justify-between items-center"><span>Teknisi 1:</span> <span className="font-mono bg-white px-1.5 py-0.5 rounded border border-slate-200 text-[10px]">teknisi1@workshop.com</span></span>
                             <span className="flex justify-between items-center"><span>Teknisi 2:</span> <span className="font-mono bg-white px-1.5 py-0.5 rounded border border-slate-200 text-[10px]">teknisi2@workshop.com</span></span>
                             <span className="flex justify-between items-center"><span>Teknisi 3:</span> <span className="font-mono bg-white px-1.5 py-0.5 rounded border border-slate-200 text-[10px]">teknisi3@workshop.com</span></span>

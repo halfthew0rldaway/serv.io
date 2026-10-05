@@ -27,7 +27,7 @@ async function main() {
 
     console.log("1. Membuat Users...");
     const admin = await prisma.user.create({
-        data: { nama: "Admin Utama", email: "411231088@mahasiswa.undira.ac.id", password, role: "admin" }
+        data: { nama: "Admin Utama", email: "admin@workshop.com", password, role: "admin" }
     });
     
     const teknisis = await Promise.all([
