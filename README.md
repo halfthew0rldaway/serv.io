@@ -28,7 +28,7 @@
     <img src="ss/preview-3.png" alt="Invoice Preview" width="800" style="border-radius: 8px; margin-bottom: 15px;" />
     <br/>
     <details>
-    <summary><b>✨ Lihat Lebih Banyak Screenshot (Klik untuk meluaskan)</b></summary>
+    <summary><h3>✨ Lihat Lebih Banyak Screenshot (Klik untuk meluaskan)</h3></summary>
     <br/>
     <img src="ss/preview-4.png" width="800" style="border-radius: 8px; margin-bottom: 15px;" />
     <br/>
